@@ -1,10 +1,11 @@
+import Header from "@/components/header";
+import { ThemeProvider } from "@/components/theme-provider";
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const robotoSans = Roboto({
+const interSans = Inter({
   subsets: ["vietnamese"],
-  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -18,8 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={robotoSans.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={interSans.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
